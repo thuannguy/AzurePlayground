@@ -17,4 +17,4 @@ To configure Azure Key Vault for your solution, right click on project -> Add ->
 
 Given that your machine has access to Azure, the configuration object will load settings from Azure:
 
-[Configuration](images/configuration.png)
+![Configuration](images/configuration.png)
