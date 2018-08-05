@@ -35,11 +35,17 @@ namespace AzurePlayground
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<KeyVaultOptions>(options => Configuration.Bind("KeyVaultOptions", options));
+
             services.AddAuthentication(AzureADB2CDefaults.AuthenticationScheme)
                 .AddAzureADB2C(options =>
                 {
                     Configuration.Bind("AzureAdB2C", options);
-                    options.ClientSecret = GetSecret();
+                    // since Azure key vault is enabled for this application, settings are loaded into the configuration object
+                    //options.ClientSecret = Configuration["AzurePlaygroundOAuthSecret"];
+
+                    // or try to manually load the setting
+                    options.ClientSecret = GetSecret(services);
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -72,14 +78,13 @@ namespace AzurePlayground
             });
         }
 
-        private string GetSecret()
+        private string GetSecret(IServiceCollection services)
         {
             KeyVaultOptions keyVaultOptions = new KeyVaultOptions();
             Configuration.Bind("KeyVaultOptions", keyVaultOptions);
-
             AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
             var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-            Microsoft.Azure.KeyVault.Models.SecretBundle secret = keyVaultClient.GetSecretAsync(keyVaultOptions.AzurePlaygroundOAuthSecret).Result;
+            Microsoft.Azure.KeyVault.Models.SecretBundle secret = keyVaultClient.GetSecretAsync(keyVaultOptions.AzurePlaygroundOAuthSecretUrl).Result;
             return secret.Value;
         }
     }

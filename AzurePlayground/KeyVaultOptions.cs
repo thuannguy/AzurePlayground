@@ -7,6 +7,8 @@ namespace AzurePlayground
 {
     public class KeyVaultOptions
     {
-        public string AzurePlaygroundOAuthSecret { get; set; }
+        public string VaultBaseUrl { get; set; }
+        public string KeyName { get; set; }
+        public string AzurePlaygroundOAuthSecretUrl { get; set; }
     }
 }

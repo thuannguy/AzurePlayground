@@ -1,0 +1,35 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Encrypt";
+}
+
+<h2>Encrypt</h2>
+
+<h4>KeyVaultOptions</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Encrypt">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label name="dataToEncrypt" id="dataToEncrypt" class="control-label">Data to encrypt:</label>
+                <input name="dataToEncrypt" id="dataToEncrypt" class="form-control" />
+
+                <label name="encryptedData" id="encryptedData" class="control-label">Encrypted data:</label>
+                <input name="encryptedData" id="encryptedData" value="@ViewData["Encrypted"]" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
