@@ -1,0 +1,32 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "Service bus";
+}
+
+<h2>Encrypt</h2>
+
+<h4>KeyVaultOptions</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label name="dataToEncrypt" id="dataToEncrypt" class="control-label">Data from service bus:</label>
+                <label name="encryptedData" id="encryptedData" class="control-label">@ViewData["QueueMessage"]</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Check message" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,5 +1,7 @@
 # How to use Azure Key Vault
 
+In short, Azure Key Vault can store keys to do cryptography operations including disk encryption, secrets, and certificates.
+
 This application requires Azure Key Vault. Firstly, you need to create an Azure Key Vault and put the secret to access your Azure AD B2C using OpenID Connect in a key named "AzurePlaygroundOAuthSecret". In an Azure environment, you can configure to allow an VM to have access to Key Vault as a managed service identity (MSI). For development environment, you can use Azure CLI to configure your local machine. Firstly, you need to install [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
 Then:
